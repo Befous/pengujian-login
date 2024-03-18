@@ -1,12 +1,13 @@
 "use client"
 import { deleteCookie, getCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function Home() {
     const router = useRouter()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const cookielogin = getCookie('Authorization', { sameSite: 'none', secure: true })
-    async function login () {
+    async function sudahlogin () {
         try {
             const response = await fetch(process.env.NEXT_PUBLIC_API_SUDAH_LOGIN as string, {
                 method: 'GET',
@@ -18,15 +19,15 @@ export default function Home() {
 
             const data = await response.json()
             if (data.status === false) {
-                console.log(data.message)
                 router.push('/login')
             } else {
-                console.log(data.message)
+                setIsLoggedIn(true)
             }
         } catch (error) {
           console.error('Error during login:', error)
         }
     }
+
     function Logout() {
         deleteCookie('Authorization', { sameSite: 'none', secure: true })
         setTimeout(() => {
@@ -34,9 +35,15 @@ export default function Home() {
             router.push('/login')
         }, 1000)
     }
+
     useEffect(() => {
-        login()
+        sudahlogin()
     }, [])
+
+    if (!isLoggedIn) {
+        return null
+    }
+
     return (
         <>
             <nav className="flex px-4 border-b md:shadow-lg items-center relative">

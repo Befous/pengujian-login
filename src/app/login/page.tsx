@@ -23,9 +23,9 @@ export default function LoginPage() {
 
             const data = await response.json()
             if (data.status === false) {
-                console.log(data.message)
+                alert(data.message)
             } else {
-                console.log(data.message)
+                alert(data.message)
                 setCookie('Authorization', data.token, { expires: expirationTime, sameSite: 'none', secure: true })
                 router.push('/')
             }
@@ -35,6 +35,7 @@ export default function LoginPage() {
             setIsLoading(false)
         }
     }
+    
     return (
         <>
             <div className="min-h-screen flex items-center justify-center w-full dark:bg-gray-950">
@@ -52,7 +53,7 @@ export default function LoginPage() {
                                 className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Forgot
                                 Password?</a>
                         </div>
-                        <button type="submit" disabled={isLoading} className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}> {isLoading ? 'Loading...' : 'Login'} </button>
+                        <button type="submit" id="tombollogin" disabled={isLoading} className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}> {isLoading ? 'Loading...' : 'Login'} </button>
                     </form>
                 </div>
             </div>
