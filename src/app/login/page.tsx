@@ -24,7 +24,6 @@ export default function LoginPage() {
             const data = await response.json()
             if (data.status === false) {
                 console.log(data.message)
-                alert(data.message)
             } else {
                 console.log(data.message)
                 setCookie('Authorization', data.token, { expires: expirationTime, sameSite: 'none', secure: true })
